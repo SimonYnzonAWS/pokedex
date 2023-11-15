@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
+
+import PokemonBackground from './images/pokemon-background.gif';
+
 import PokeCard from './components/PokeCard';
+import SearchModal from './components/SearchModal';
+import BattleModal from './components/BattleModal';
+
+import './css/main.css'
 
 const initialPokemonInput = {
   pokemon: ""
@@ -7,21 +14,44 @@ const initialPokemonInput = {
 
 function App() {
 
-  const [pokemonInput, setPokemonInput] = useState(initialPokemonInput)
+  // ---------------- SEARCH MODAL --------------------
+  const [isModalOpenSearch, setModalOpenSearch] = useState(false);
+  
+  const openModalSearch = () => {
+    setModalOpenSearch(true);
+  }
+
+  const closeModalSearch = () => {
+    setModalOpenSearch(false);
+  }
+  // ---------------------------------------------------
+
+  // ---------------- BATTLE MODAL --------------------
+  const [isModalOpenBattle, setModalOpenBattle] = useState(false);
+  
+  const openModalBattle = () => {
+    setModalOpenBattle(true);
+  }
+
+  const closeModalBattle = () => {
+    setModalOpenBattle(false);
+  }
+  // ---------------------------------------------------
+
+
+  const [pokemonInput, setPokemonInput] = useState(initialPokemonInput);
 
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const fetchData = async (input) => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${input}/`);
       const result = await response.json();
       setData(result);
-      console.log(data)
+      // console.log("THIS IS FROM FETCH DATA: " + data)
     } catch (error) {
       console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -30,38 +60,46 @@ function App() {
     setPokemonInput({ ...pokemonInput, [name]: value });
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmitSearch = (event) => {
     event.preventDefault();
 
     let search = pokemonInput.pokemon
     fetchData(search);
+    openModalSearch();
+  }
+
+  const PokemonBattle = () => {
+    openModalBattle();
   }
 
   return (
     <div className="App">
-        <h1>Pokédex</h1>
-        <form onSubmit={handleSubmit} autoComplete="off">
+      <img src={PokemonBackground} className='background--image' alt="Background"/>
+      <div className='home--container'>
+        <form className='search--form' onSubmit={handleSubmitSearch} autoComplete="off">
+          <h1 className='app--title'>Pokédex</h1>
           <input
+            className='search--input'
             type="text"
             name="pokemon"
             placeholder="Enter Pokemon Number or Name"
             onChange={handleInputChange}
           />
-          <input type="submit" value="search pokemon"/>
+          <div className='form--footer--container'>
+            <input className='search--button' type="submit" value="Search Pokemon"/>
+            <input className='battle--button' onClick={PokemonBattle} type="button" value="Pokemon Battle"/>
+          </div>
         </form>
-        <input type="button" value="pokemon battle"/>
-        <div>
-          {data ? (
-            <PokeCard 
-              name={data.forms[0].name}
-              //image={data.sprites.other.home.front_default}
-              //image={data.sprites.other["official-artwork"].front_default}
-              image={data.sprites.front_default}
-            />
-          ) : (
-            <p></p>
-          )}
-        </div>
+      </div>
+      <SearchModal 
+        isOpenSearch={isModalOpenSearch} 
+        onCloseSearch={closeModalSearch}
+        pokemonData={data}
+      />
+      <BattleModal
+        isOpenBattle={isModalOpenBattle}
+        onCloseBattle={closeModalBattle}
+      />
     </div>
   );
 }
