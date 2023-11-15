@@ -30,25 +30,57 @@
 .search--input {
     width: 300px;
     margin-top: 20px;
-    padding: 5px 10px 5px 10px;
+    padding: 10px 15px 10px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+}
+
+.search--input:focus {
+    outline: none;
+    border: none;
 }
 
 .search--button {
     margin-top: 20px;
-    padding: 5px 10px 5px 10px;
+    padding: 10px 15px 10px 15px;
+    background-color: #2a4d85;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.search--button:hover {
+    background-color: #275db3;
 }
 
 .battle--button {
     margin-top: 20px;
-    padding: 5px 10px 5px 10px;
+    padding: 10px 15px 10px 15px;
+    background-color: #2a4d85;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.battle--button:hover {
+    background-color: #275db3;
 }
 
 .form--footer--container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 80px;
-    margin-right: 80px;
+    margin-left: 60px;
+    margin-right: 60px;
 }
 
 .background--image {
@@ -67,7 +99,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
+    background-color: rgba(24, 35, 57);
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -83,10 +115,14 @@
 
 .search--pokemon--name {
     text-transform: uppercase;
+    color: #ffffff;
 }
 
 .search--pokemon--image {
     width: 200px;
+    filter: drop-shadow(1px 40px 25px #000000);
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .close--button {
@@ -114,27 +150,140 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
+    background: linear-gradient(to right, #192e4a, #4a1919);
+    padding: 20px 20px 60px 20px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 800px;
+    width: 1450px;
     text-align: center;
 }
 
-/* --------------------------------- */
-  .team-container {
+.close--button {
+    color: #ffffff83;
+}
+
+.modal--title--battle {
+    font-size: 60px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.modal--result--label {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.modal--result--battle {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #ffffff;
+}
+
+.teams--container {
     display: flex;
     justify-content: space-around;
-  }
-  
-  .team {
-    flex: 1;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  .pokemon {
-    margin-bottom: 15px;
-  }
+    align-items: center;
+}
+
+.team1--label {
+    font-size: 25px;
+    margin-top: -60px;
+    color: #3e7bc9;
+}
+
+.team1--total {
+    font-size: 40px;
+    color: #add2ff;
+}
+
+.team2--label {
+    font-size: 25px;
+    margin-top: -60px;
+    color: #c9403e;
+}
+
+.team2--total {
+    font-size: 40px;
+    color: #ffa3a3;
+}
+
+.grid--container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+    grid-template-rows: repeat(2, 225px); /* Two rows with fixed height of 100px */
+    gap: 20px; /* Gap between grid items */
+}
+
+.grid--item {
+    /* Optional styling for grid items */
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.battle--card--name1 {
+    font-size: 20px;
+    color: #3e7bc9;
+}
+
+.battle--card--name2 {
+    font-size: 20px;
+    color: #c9403e;
+}
+
+.battle--card--name1::first-letter {
+    text-transform: uppercase;  
+}
+
+.battle--card--name2::first-letter {
+    text-transform: uppercase;  
+}
+
+.battle--card--label {
+    margin-top: 5px;
+    font-size: 10px;
+}
+
+.battle--card--experience--num {
+    margin-top: 5px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.battle--card--image {
+    width: 125px;
+    filter: drop-shadow(1px 40px 25px #000000);
+    transition: transform 0.3s ease;
+}
+
+.battle--card--image:hover {
+    transform: scale(1.4);
+}
+
+.battle--card--refresh {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: -80px;
+}
+
+.refresh--icon {
+    width: 40px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.refresh--icon:hover {
+    animation: rotateAnimation 2s infinite linear;
+}
+
+@keyframes rotateAnimation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg); /* Adjust the rotation angle as needed */
+    }
+}
