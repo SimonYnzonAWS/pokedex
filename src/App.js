@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import PokemonBackground from './images/pokemon-background.gif';
+import Pokedex from './images/Pokedex.png';
 
-import PokeCard from './components/PokeCard';
 import SearchModal from './components/SearchModal';
 import BattleModal from './components/BattleModal';
 
@@ -38,7 +38,6 @@ function App() {
   }
   // ---------------------------------------------------
 
-
   const [pokemonInput, setPokemonInput] = useState(initialPokemonInput);
 
   const [data, setData] = useState(null);
@@ -64,20 +63,26 @@ function App() {
     event.preventDefault();
 
     let search = pokemonInput.pokemon
-    fetchData(search);
-    openModalSearch();
+    fetchData(search.toLowerCase());
+    // openModalSearch();
   }
 
   const PokemonBattle = () => {
     openModalBattle();
   }
 
+  useEffect(() => {
+    if (data) {
+      openModalSearch();
+    }
+  }, [data]);
+
   return (
     <div className="App">
       <img src={PokemonBackground} className='background--image' alt="Background"/>
       <div className='home--container'>
+        <img src={Pokedex} className='pokedex--text' alt="Pokedex"/>
         <form className='search--form' onSubmit={handleSubmitSearch} autoComplete="off">
-          <h1 className='app--title'>Pokédex</h1>
           <input
             className='search--input'
             type="text"

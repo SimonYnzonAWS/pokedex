@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-import PokeCard from './PokeCard';
-
 import RefreshIcon from '../images/refresh-icon.png';
+import PokemonBattle from '../images/Pokemon-Battle.png';
 
 import '../css/main.css'
 
@@ -44,21 +43,20 @@ const BattleModal = ({ isOpenBattle, onCloseBattle}) => {
         .then(results => {
           console.log("All data fetched:", results);
   
-          // Divide Pokemon into two teams
           const team1 = results.slice(0, 4);
           const team2 = results.slice(4, 8);
   
           setTeam1Pokemons(team1);
           setTeam2Pokemons(team2);
   
-          // Calculate and set the winner based on the current battle results
+          // Total
           const currentTeam1Total = team1.reduce((total, pokemon) => total + pokemon.base_experience, 0);
           const currentTeam2Total = team2.reduce((total, pokemon) => total + pokemon.base_experience, 0);
   
           setTeam1Total(currentTeam1Total);
           setTeam2Total(currentTeam2Total);
   
-          // Set the winner based on the current totals
+          // Compare Total
           if (currentTeam1Total > currentTeam2Total) {
             setWinner('Team 1');
           } else if (currentTeam2Total > currentTeam1Total) {
@@ -86,7 +84,7 @@ const BattleModal = ({ isOpenBattle, onCloseBattle}) => {
           <div className='modal--header'>
             <p className='close--button' onClick={onCloseBattle}>&times;</p>
           </div>
-          <h1 className='modal--title--battle'>Pokémon Battle</h1>
+          <img src={PokemonBattle} className='pokemon--battle--text' alt="Pokemon Battle Text"/>
           <p className='modal--result--label'>WINNER</p>
           <h2 className='modal--result--battle'>{winner && `${winner}`}</h2>
           <div className='teams--container'>
@@ -101,7 +99,7 @@ const BattleModal = ({ isOpenBattle, onCloseBattle}) => {
                     <p className='battle--card--label'>EXP</p>
                     <p className='battle--card--experience--num'>{pokemon.base_experience}</p>
                     <div className='battle--card--background'>
-                      <img className='battle--card--image' src={pokemon.sprites.front_default} alt='pokemon image'/>
+                      <img className='battle--card--image' src={pokemon.sprites.front_default} alt='battle pokemon'/>
                     </div>
                 </div>
                 ))}
@@ -118,7 +116,7 @@ const BattleModal = ({ isOpenBattle, onCloseBattle}) => {
                     <p className='battle--card--label'>EXP</p>
                     <p className='battle--card--experience--num'>{pokemon.base_experience}</p>
                     <div className='battle--card--background'>
-                      <img className='battle--card--image' src={pokemon.sprites.front_default} alt='pokemon image'/>
+                      <img className='battle--card--image' src={pokemon.sprites.front_default} alt='battle pokemon'/>
                     </div>
                   </div>
                 ))}
